@@ -87,6 +87,9 @@
                 } else if (e.code === 'ArrowRight') {
                     element.style.left = (element.offsetLeft + 10) + "px";
                 } else if (e.code === 'Space') {
+                    element.style.animation = "none";
+                    element.offsetHeight;
+                    element.style.animation = null;
                     element.classList.remove("jump");
                     element.classList.add("jump");
                 }
