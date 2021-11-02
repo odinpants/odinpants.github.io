@@ -1,7 +1,7 @@
 <html><head>
     <style>
         body {
-            background: linear-gradient(90deg, #fdcd3b 60%, #ffed4b 60%);
+            background: linear-gradient(#4bccff 50%, #1aa11a 50%);
             font-family: 'Arial';
         }
 
@@ -12,6 +12,32 @@
         table {
             margin-left: auto;
             margin-right: auto;
+        }
+
+        #guy {
+            position: absolute;
+            z-index: 9;
+            background-color: brown;
+            top: 350px;
+            height: 100px;
+            width: 100px;
+        }
+
+        #guy.active {
+            border: 5px solid black;
+        }
+
+        #guy.jump {
+            animation-name: bounce;
+            animation-timing-function: ease-in;
+            animation-iteration-count: 1;
+            animation-duration: 1s;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-100px); }
+            100% { transform: translateY(0); }
         }
 	</style>
 </head><body><h1>Hello, I'm Odin!</h1>
@@ -33,7 +59,38 @@
             </td>
         </tr>
     </tbody></table>
+    <div id="guy"></div>
     <footer>
 	    <a href="credits.html">Credits</a>
 	</footer>
+    <script>
+        moveable(document.getElementById("guy"));
+
+        function moveable(element) {
+            element.onmousedown = makeMovable;
+
+            function makeMovable(e) {
+                document.addEventListener('keydown', moveElement);
+                element.onmousedown = disableMoveable;
+                element.classList.add("active");
+            }
+
+            function disableMoveable(e) {
+                document.removeEventListener('keydown', moveElement);
+                element.onmousedown = makeMovable;
+                element.classList.remove("active");
+            }
+
+            function moveElement(e) {
+                if (e.code === 'ArrowLeft') {
+                    element.style.left = (element.offsetLeft - 10) + "px";
+                } else if (e.code === 'ArrowRight') {
+                    element.style.left = (element.offsetLeft + 10) + "px";
+                } else if (e.code === 'Space') {
+                    element.classList.remove("jump");
+                    element.classList.add("jump");
+                }
+            }
+        }
+    </script>
 </body></html>
