@@ -40,7 +40,7 @@
             100% { transform: translateY(0); }
         }
 
-        #oof img {
+        #play img {
             height: 100px;
             width: 100px;
         }
@@ -57,21 +57,26 @@
     </tbody></table>
     <div id="guy"></div>
     <footer>
-        <button id="oof">
+        <select id="sound">
+          <option value="oof.mp3">oof</option>
+          <option value="drip.mp3">drip</option>
+        </select>
+        <button id="play">
             <img src="oof.jpg">
         </button>
 	    <a href="credits.html">Credits</a>
 	</footer>
     <script>
         moveable(document.getElementById("guy"));
-        document.getElementById("oof").addEventListener("click", play("oof.mp3"));
-
-        function play(file) {
-            function pressed() {
-                new Audio(file).play();
+        let currentlyPlaying = null;
+        document.getElementById("play").addEventListener("click", function () {
+            if (currentlyPlaying) {
+                currentlyPlaying.pause();
             }
-            return pressed;
-        }
+            const file = document.getElementById("sound").value;
+            currentlyPlaying = new Audio(file);
+            currentlyPlaying.play();
+        });
 
         function moveable(element) {
             element.onmousedown = makeMovable;
