@@ -39,6 +39,11 @@
             50% { transform: translateY(-100px); }
             100% { transform: translateY(0); }
         }
+
+        #oof img {
+            height: 100px;
+            width: 100px;
+        }
 	</style>
 </head><body><h1>Hello, I'm Odin!</h1>
     <table>
@@ -52,10 +57,21 @@
     </tbody></table>
     <div id="guy"></div>
     <footer>
+        <button id="oof">
+            <img src="oof.jpg">
+        </button>
 	    <a href="credits.html">Credits</a>
 	</footer>
     <script>
         moveable(document.getElementById("guy"));
+        document.getElementById("oof").addEventListener("click", play("oof.mp3"));
+
+        function play(file) {
+            function pressed() {
+                new Audio(file).play();
+            }
+            return pressed;
+        }
 
         function moveable(element) {
             element.onmousedown = makeMovable;
